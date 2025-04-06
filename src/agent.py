@@ -15,7 +15,7 @@ async def agent(input: str) -> AsyncGenerator[str, None]:
     prompt = "You are a helpful assistant that can answer questions and help with tasks."
     tools = await bl_tools(["blaxel-search"]).to_pydantic() + [Tool(weather, )]
     model = await bl_model("gpt-4o-mini").to_pydantic()
-    agent = Agent(model=model, tools=tools, model_settings=ModelSettings(temperature=0))
+    agent = Agent(model=model, tools=tools, model_settings=ModelSettings(temperature=0), system_prompt=prompt)
     async with agent.iter(input) as agent_run:
         async for node in agent_run:
             if isinstance(node, CallToolsNode):
