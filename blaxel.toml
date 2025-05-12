@@ -2,3 +2,6 @@ type = "agent"
 
 functions = ["all"]
 models = ["sandbox-openai"]
+
+[entrypoint]
+prod = ".venv/bin/python3 src/main.py"
