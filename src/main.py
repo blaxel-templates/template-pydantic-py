@@ -3,9 +3,7 @@ from contextlib import asynccontextmanager
 from logging import getLogger
 
 import uvicorn
-from blaxel.instrumentation.span import SpanManager
 from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 
 from server.error import init_error_handlers
@@ -20,6 +18,7 @@ async def lifespan(app: FastAPI):
     logger.info(f"Server running on port {os.getenv('BL_SERVER_PORT', 80)}")
     yield
     logger.info("Server shutting down")
+
 
 app = FastAPI(lifespan=lifespan)
 init_error_handlers(app)
