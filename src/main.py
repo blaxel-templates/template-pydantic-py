@@ -26,7 +26,7 @@ init_middleware(app)
 app.include_router(router)
 
 
-FastAPIInstrumentor.instrument_app(app)
+FastAPIInstrumentor.instrument_app(app, exclude_spans=["receive", "send"])
 
 if __name__ == "__main__":
     uvicorn.run(
