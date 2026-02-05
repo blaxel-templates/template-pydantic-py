@@ -3,7 +3,6 @@ from typing import AsyncGenerator
 from blaxel.pydantic import bl_model, bl_tools
 from pydantic_ai import Agent, CallToolsNode, Tool
 from pydantic_ai.messages import ToolCallPart
-from pydantic_ai.models import ModelSettings
 
 
 def weather(city: str) -> str:
@@ -20,11 +19,10 @@ async def agent(input: str) -> AsyncGenerator[str, None]:
             weather,
         )
     ]
-    model = await bl_model("gpt-4o-mini")
+    model = await bl_model("sandbox-openai")
     agent = Agent(
         model=model,
         tools=tools,
-        model_settings=ModelSettings(temperature=0),
         system_prompt=prompt,
     )
     async with agent.iter(input) as agent_run:
